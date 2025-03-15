@@ -66,47 +66,48 @@ const Reservations = () => {
 
   return (
     <>
-      <div className="container-fluid mt-4">
-        <h3 className="text-center mb-4 fw-bold">Lista e Rezervimeve</h3>
+      <div className="container mt-4">
+  <h3 className="text-center mb-4 fw-bold">Lista e Rezervimeve</h3>
 
-        <div className="d-flex justify-content-between mb-3">
-          <Button variant="primary" onClick={handleShow}>➕ Shto Rezervim</Button>
-        </div>
+  <div className="d-flex justify-content-center mb-3">
+    <Button variant="primary" onClick={handleShow}>➕ Shto Rezervim</Button>
+  </div>
 
-        <div className="table-responsive w-100 overflow-auto">
-        <table className="table table-bordered table-hover shadow-sm rounded text-center w-100" style={{ minWidth: "1200px" }}>
-            <thead className="table-primary">
-              <tr>
-                <th>#</th>
-                <th>Emri</th>
-                <th>Mbiemri</th>
-                <th>Data</th>
-                <th>Menuja</th>
-                <th>Mysafirët</th>
-                <th>Paradhënie (€)</th>
-                <th>Veprimet</th>
-              </tr>
-            </thead>
-            <tbody>
-              {reservations.map((res, index) => (
-                <tr key={res.id}>
-                  <td>{index + 1}</td>
-                  <td>{res.emri}</td>
-                  <td>{res.mbiemri}</td>
-                  <td>{res.data}</td>
-                  <td>{res.menuja}</td>
-                  <td>{res.mysafiret}</td>
-                  <td>{res.paradhenie}</td>
-                  <td>
-                    <Button variant="warning" className="me-2" onClick={() => handleEditShow(res)}>✏️ Modifiko</Button>
-                    <Button variant="danger" onClick={() => handleDeleteShow(res)}>❌ Fshi</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div className="table-responsive">
+    <table className="table table-bordered table-hover shadow-sm text-center">
+      <thead className="table-primary">
+        <tr>
+          <th>#</th>
+          <th>Emri</th>
+          <th>Mbiemri</th>
+          <th>Data</th>
+          <th>Menuja</th>
+          <th>Mysafirët</th>
+          <th>Paradhënie (€)</th>
+          <th>Veprimet</th>
+        </tr>
+      </thead>
+      <tbody>
+        {reservations.map((res, index) => (
+          <tr key={res.id}>
+            <td>{index + 1}</td>
+            <td>{res.emri}</td>
+            <td>{res.mbiemri}</td>
+            <td>{res.data}</td>
+            <td>{res.menuja}</td>
+            <td>{res.mysafiret}</td>
+            <td>{res.paradhenie}</td>
+            <td className="action-buttons">
+              <Button variant="warning" size="sm" className="me-1" onClick={() => handleEditShow(res)}>✏️</Button>
+              <Button variant="danger" size="sm" onClick={() => handleDeleteShow(res)}>❌</Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
       <Modal show={deleteShow} onHide={handleDeleteClose}>
         <Modal.Header closeButton>

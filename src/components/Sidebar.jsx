@@ -1,40 +1,37 @@
-import React, { useState } from "react";
-import Reservations from "./Reservations";
-import Menus from "./Menus";
+import React from "react";
 
-const Sidebar = () => {
-  const [activePage, setActivePage] = useState("reservations");
-
+const Sidebar = ({ isSidebarOpen, toggleSidebar, activePage, setActivePage }) => {
   return (
-    <div className="d-flex">
+    <>
+      {/* Overlay për të errësuar sfondin kur Sidebar-i është hapur */}
+      {isSidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+
       {/* Sidebar */}
-      <div className="d-flex flex-column flex-shrink-0 p-3 bg-light shadow-sm" 
-           style={{ width: "250px", height: "100vh", borderRight: "2px solid #ddd" }}>
+      <div className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}>
+        {/* Butoni për mbylljen e Sidebar-it në mobile */}
+        <button className="btn btn-danger close-sidebar-btn d-lg-none" onClick={toggleSidebar}>
+          ✖
+        </button>
+
         <h4 className="text-center fw-bold">Menu</h4>
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="nav-item">
-            <button className={`nav-link ${activePage === "reservations" ? "active" : ""}`} 
-                    onClick={() => setActivePage("reservations")}>
+            <button
+              className={`nav-link ${activePage === "reservations" ? "active" : ""}`}
+              onClick={() => { setActivePage("reservations"); toggleSidebar(); }}>
               Rezervimet
             </button>
           </li>
           <li className="nav-item">
-            <button className={`nav-link ${activePage === "menus" ? "active" : ""}`} 
-                    onClick={() => setActivePage("menus")}>
+            <button
+              className={`nav-link ${activePage === "menus" ? "active" : ""}`}
+              onClick={() => { setActivePage("menus"); toggleSidebar(); }}>
               Menytë
             </button>
           </li>
         </ul>
       </div>
-
-      {/* Kjo pjesë do të marrë hapësirën që mbetet */}
-      <div className="container-fluid mt-4 flex-grow-1">
-        <div className="w-100">
-          {activePage === "reservations" && <Reservations />}
-          {activePage === "menus" && <Menus />}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
